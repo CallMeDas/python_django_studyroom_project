@@ -8,12 +8,13 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'GITHUB_PAT', usernameVariable: 'GIT_USER', passwordVariable: 'GIT_PAT')]) {
-                    bat '''
-                    if exist webapp (rmdir /s /q webapp)
-                    git clone https://%GIT_USER%:%GIT_PAT%@https://github.com/Jitenrai21/python_django_studyroom_project.git webapp
-                    '''
-                }
+              withCredentials([string(credentialsId: 'GITHUB_PAT', variable: 'GIT_PAT')]) {
+    bat """
+    if exist webapp (rmdir /s /q webapp )
+    git clone https://callmedas:${GIT_PAT}@github.com/Jitenrai21/python_django_studyroom_project.git webapp
+    """
+}
+
             }
         }
 
